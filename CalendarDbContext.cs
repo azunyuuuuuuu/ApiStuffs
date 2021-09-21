@@ -8,10 +8,10 @@ public class CalendarDbContext : DbContext
 public class Collection
 {
     public Guid CollectionId { get; set; } = Guid.NewGuid();
-    public List<Calendar> Calendars { get; set; } = new List<Calendar>();
+    public List<CalendarReference> Calendars { get; set; } = new List<CalendarReference>();
 }
 
-public class Calendar
+public class CalendarReference
 {
     public Guid CalendarId { get; set; } = Guid.NewGuid();
 
