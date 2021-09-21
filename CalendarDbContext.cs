@@ -15,7 +15,7 @@ public class Calendar
 {
     public Guid CalendarId { get; set; } = Guid.NewGuid();
 
-    public Uri SourceUri { get; set; } =
+    public Uri SourceUri { get; set; }
 
     public List<CalendarEntry> CalendarEntries { get; set; } = new List<CalendarEntry>();
 }
