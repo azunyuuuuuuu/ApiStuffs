@@ -16,6 +16,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapPost("/calendar", async (string url) =>
 {
@@ -27,5 +28,19 @@ app.MapPost("/calendar", async (string url) =>
     return Results.Text(calendarSerialzier.SerializeToString(calendar), "text/calendar");
 });
 
-app.UseSwaggerUI();
+// create bucket via magic string and return bucket object
+
+// add reference to bucket and return reference guid
+
+// remove from bucket via reference guid
+
+// remove bucket via bucket guid
+
+// get ical from bucket
+
+// refresh references via bucket id
+
+// refresh references via reference id
+
+
 app.Run();
