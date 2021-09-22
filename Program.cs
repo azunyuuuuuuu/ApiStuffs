@@ -28,19 +28,22 @@ app.MapPost("/calendar", async (string url) =>
     return Results.Text(calendarSerialzier.SerializeToString(calendar), "text/calendar");
 });
 
-// create bucket via magic string and return bucket object
+// create calendar via magic string and return bucket object
+app.MapPost("/cal", () => "henlo :3");
 
-// add reference to bucket and return reference guid
+// add reference to calendar and return reference object
+app.MapPut("/cal/{bucketid:guid}", (Guid bucketid) => "henlo :3");
 
-// remove from bucket via reference guid
+// remove reference via reference guid
+app.MapDelete("/ref/{bucketid:guid}/{referenceid:guid}", (Guid bucketid, Guid referenceid) => "henlo :3");
 
-// remove bucket via bucket guid
+// remove calendar via bucket guid
+app.MapDelete("/cal/{bucketid:guid}", (Guid bucketid) => "henlo :3");
 
-// get ical from bucket
+// get ical from calendar with optional refresh
+app.MapGet("/cal/{bucketid:guid}", (Guid bucketid) => "henlo :3");
 
-// refresh references via bucket id
-
-// refresh references via reference id
-
+// get single reference with optional refresh
+app.MapGet("/ref/{referenceid:guid}", (Guid referenceid) => "henlo :3");
 
 app.Run();
