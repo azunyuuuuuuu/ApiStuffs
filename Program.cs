@@ -3,6 +3,8 @@ using Ical.Net.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -18,10 +20,12 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapPost("/calendar", async (string url) =>
+app.MapGet("/calendar", async (IHttpClientFactory clientFactory, string url) =>
 {
+    using var client = clientFactory.CreateClient();
+
     var calendarSerialzier = new CalendarSerializer();
-    var results = await new HttpClient().GetStringAsync(url);
+    var results = await client.GetStringAsync(url);
 
     var calendar = Calendar.Load(results);
 
