@@ -1,5 +1,7 @@
 using Ical.Net;
 using Ical.Net.Serialization;
+using Ical.Net.Proxies;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,16 +22,24 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // map the endpoints
-app.MapGet("/calendar", async (IHttpClientFactory clientFactory, string url) =>
+app.MapGet("/calendar/{*inputurls}", async (
+    string inputurls,
+    IHttpClientFactory clientFactory
+    ) =>
 {
+    var urls = inputurls.Split(";");
     using var client = clientFactory.CreateClient();
 
-    var calendarSerialzier = new CalendarSerializer();
-    var results = await client.GetStringAsync(url);
+    var temp = new List<string>();
+    await Parallel.ForEachAsync(urls, async (url, token) => temp.Add(await client.GetStringAsync(url, token)));
 
-    var calendar = Calendar.Load(results);
+    var tenp2 = string.Join(Environment.NewLine, temp);
 
-    return Results.Text(calendarSerialzier.SerializeToString(calendar), "text/calendar");
+    var calendar = CalendarCollection.Load(tenp2);
+
+    var calendarserializer = new CalendarSerializer();
+    var serialized = calendarserializer.SerializeToString(calendar);
+    return Results.Text(serialized, "text/calendar");
 });
 
 app.Run();
