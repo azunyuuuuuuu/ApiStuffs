@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// setup the services
-builder.Services.AddHttpClient();
+// setup the modules
+builder.RegisterModules();
 
+// register additional services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -22,6 +23,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // map the endpoints
+app.MapEndpoints();
+
 app.MapGet("/calendar/{*inputurls}", async (
     string inputurls,
     IHttpClientFactory clientFactory
