@@ -25,24 +25,4 @@ app.UseSwaggerUI();
 // map the endpoints
 app.MapEndpoints();
 
-app.MapGet("/calendar/{*inputurls}", async (
-    string inputurls,
-    IHttpClientFactory clientFactory
-    ) =>
-{
-    var urls = inputurls.Split(";");
-    using var client = clientFactory.CreateClient();
-
-    var temp = new List<string>();
-    await Parallel.ForEachAsync(urls, async (url, token) => temp.Add(await client.GetStringAsync(url, token)));
-
-    var tenp2 = string.Join(Environment.NewLine, temp);
-
-    var calendar = CalendarCollection.Load(tenp2);
-
-    var calendarserializer = new CalendarSerializer();
-    var serialized = calendarserializer.SerializeToString(calendar);
-    return Results.Text(serialized, "text/calendar");
-});
-
 app.Run();
