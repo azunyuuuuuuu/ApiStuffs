@@ -9,10 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // setup the modules
 builder.RegisterModules();
 
-// register additional services
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddHttpLogging(logging =>
     {
         // Customize HTTP logging here.
@@ -33,12 +29,7 @@ app.UseHttpLogging();
 if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
-// explore the api
-app.UseSwagger();
-app.UseSwaggerUI();
-
 // map the endpoints
-
 app.MapGet("/", ctx =>
 {
     ctx.Response.ContentType = "text/html";
