@@ -9,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // setup the modules
 builder.RegisterModules();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 builder.Services.AddHttpLogging(logging =>
     {
         // Customize HTTP logging here.
@@ -20,6 +23,7 @@ builder.Services.AddHttpLogging(logging =>
         logging.RequestBodyLogLimit = 4096;
         logging.ResponseBodyLogLimit = 4096;
     });
+
 
 // build the app
 var app = builder.Build();
