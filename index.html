@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ApiStuffs</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+</head>
+
+<body>
+    <header>
+        <h1>ApiStuffs</h1>
+    </header>
+    <main>
+        <section>
+            <aside id="urlForm" style="width: 25rem">
+                <h3> Enter an URL to an .ics file to create a new calendar collection. </h3>
+                <label>
+                    .ics url
+                    <input type="url" id="url" name="url" style="width: 22rem; margin: 0.5rem 0" />
+                </label>
+
+                <button type="button" onclick="createCollection()" style="padding: 0.5rem 1rem">
+                    Create collection
+                </button>
+                <p id="urlResult"></p>
+            </aside>
+        </section>
+    </main>
+
+    <main>
+        <section>
+            <aside id="urlForm" style="width: 25rem">
+                <h3> Add a calendar to a calendar collection. </h3>
+                <label>
+                    Collection ID
+                    <input type="text" id="id" name="id" style="width: 22rem; margin: 0.5rem 0" />
+                </label>
+
+                <label>
+                    .ics url
+                    <input type="url" id="url2" name="url2" style="width: 22rem; margin: 0.5rem 0" />
+                </label>
+
+                <button type="button" onclick="addToCollection()" style="padding: 0.5rem 1rem">
+                    Get link
+                </button>
+                <p id="urlResult2"></p>
+            </aside>
+        </section>
+    </main>
+    <script>
+        document
+            .getElementById('url')
+            .addEventListener('keyup', function (event) {
+                if (event.code === 'Enter') {
+                    event.preventDefault();
+                    createCollection();
+                }
+            });
+
+        document
+            .getElementById('url2')
+            .addEventListener('keyup', function (event) {
+                if (event.code === 'Enter') {
+                    event.preventDefault();
+                    addToCollection();
+                }
+            });
+
+        function createCollection() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/calendar', true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const id = JSON.parse(xhr.responseText).id;
+                        const section = document.getElementById('urlResult');
+                        section.innerHTML = `<a id="link" href="/calendar/${id}.ics">${id}</a>`;
+                    } else {
+                        alert(xhr.responseText);
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify({ url: document.getElementById('url').value }));
+        }
+
+        function addToCollection() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', '/calendar', true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const id = JSON.parse(xhr.responseText).id;
+                        const section = document.getElementById('urlResult2');
+                        section.innerHTML = `<a id="link" href="/calendar/${id}.ics">${id}</a>`;
+                    } else {
+                        alert(xhr.responseText);
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify({ url: document.getElementById('url2').value, id: document.getElementById('id').value }));
+        }
+    </script>
+</body>
+
+</html>

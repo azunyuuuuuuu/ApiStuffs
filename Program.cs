@@ -38,6 +38,13 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // map the endpoints
+
+app.MapGet("/", ctx =>
+{
+    ctx.Response.ContentType = "text/html";
+    return ctx.Response.SendFileAsync("index.html");
+});
+
 app.MapEndpoints();
 
 app.Run();
