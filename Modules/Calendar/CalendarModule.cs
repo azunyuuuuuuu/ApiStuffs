@@ -8,7 +8,7 @@ public class CalendarModule : IModule
     public IServiceCollection RegisterModule(IServiceCollection services)
     {
         services.AddHttpClient();
-        services.AddSingleton<ILiteDatabaseAsync, LiteDatabaseAsync>(_ => new LiteDatabaseAsync("Filename=calendar.db;Connection=shared;"));
+        services.AddSingleton<ILiteDatabaseAsync, LiteDatabaseAsync>(_ => new LiteDatabaseAsync("Filename=data/calendar.db;Connection=shared;"));
         return services;
     }
 

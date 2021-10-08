@@ -18,4 +18,6 @@ COPY --from=build /out ./
 ENV Logging__Console__FormatterName=Simple
 EXPOSE 80
 
+VOLUME /app/data
+
 ENTRYPOINT ["dotnet", "ApiStuffs.dll"]
