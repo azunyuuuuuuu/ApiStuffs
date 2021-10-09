@@ -4,6 +4,9 @@ using Ical.Net.Proxies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.HttpLogging;
 
+Console.WriteLine($"{ThisAssembly.AssemblyName} Version {ThisAssembly.AssemblyFileVersion}");
+Console.WriteLine($"Initializing...");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // setup the modules
