@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="LiteDB.Async" Version="0.0.11" />
     <PackageReference Include="SolarCalculator" Version="3.0.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
