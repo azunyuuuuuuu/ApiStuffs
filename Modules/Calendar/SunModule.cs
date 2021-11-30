@@ -21,13 +21,15 @@ public class SunModule : IModule
             [FromQuery(Name = "sunrise")] bool? includeSunrise,
             [FromQuery(Name = "sunset")] bool? includeSunset,
             [FromQuery(Name = "daylight")] bool? includeDayLight,
-            [FromQuery(Name = "night")] bool? includeNightTime
+            [FromQuery(Name = "night")] bool? includeNightTime,
+            [FromQuery(Name = "from")] int? FromDays,
+            [FromQuery(Name = "to")] int? ToDays
             ) =>
         {
             var output = new Calendar();
 
-            var res = Enumerable.Range(0, 365)
-                .Select(x => new DateTime(DateTimeOffset.Now.Year, 1, 1) + TimeSpan.FromDays(x))
+            var res = Enumerable.Range(FromDays ?? 0, ToDays ?? 14)
+                .Select(x => DateTimeOffset.Now.Date + TimeSpan.FromDays(x))
                 .Where(x => x.Year == DateTimeOffset.Now.Year)
                 .Select(x => new
                 {
