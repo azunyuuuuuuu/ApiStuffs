@@ -10,6 +10,9 @@ Console.WriteLine($"Initializing...");
 var builder = WebApplication.CreateBuilder(args);
 
 // setup the modules
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.RegisterModules();
 
 builder.Logging.ClearProviders();
@@ -35,6 +38,12 @@ app.UseHttpLogging();
 
 if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // map the endpoints
 app.MapGet("/", ctx =>
