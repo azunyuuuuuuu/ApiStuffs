@@ -56,25 +56,29 @@ public class SunModule : IModule
                     {
                         Summary = "🌅 Sunrise",
                         Start = x.SunriseBegin,
-                        End = x.SunriseEnd
+                        End = x.SunriseEnd,
+                        Properties = { new CalendarProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE") },
                     },
                     SunsetEvent = new CalendarEvent
                     {
                         Summary = "🌇 Sunset",
                         Start = x.SunsetBegin,
-                        End = x.SunsetEnd
+                        End = x.SunsetEnd,
+                        Properties = { new CalendarProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE") },
                     },
                     DayLight = new CalendarEvent
                     {
                         Summary = "☀️ Daylight",
                         Start = x.SunriseEnd,
-                        End = x.SunsetBegin
+                        End = x.SunsetBegin,
+                        Properties = { new CalendarProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE") },
                     },
                     NightTime = new CalendarEvent
                     {
                         Summary = "🌕 Night",
                         Start = x.SunsetEnd,
-                        End = x.SunriseBeginNextDay
+                        End = x.SunriseBeginNextDay,
+                        Properties = { new CalendarProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE") },
                     }
                 });
 
